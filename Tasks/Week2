@@ -1,0 +1,41 @@
+🧩 Smart Home Project – Week 2 Tasks
+🎯 Goal of the Week
+
+Implement the core classes (OOP structure) and integrate the system with the database (MySQL + JDBC).
+
+👥 Team Members and Roles
+Member	Role	Deliverables
+Diaa	Core Classes Developer	Implement main OOP classes (Device, Light, AC, Door, Room, User)
+Mohamed	GUI Developer	Develop Login GUI and basic navigation
+Ola	Database Developer	Create and connect MySQL database via JDBC
+Yara	System Logic Developer	Implement control methods (turnOn, turnOff, getStatus)
+Mazen	Smart Assistant Developer	Prepare text-based assistant commands
+Menna	Data Logging	Build LogManager class to store logs (CSV + DB)
+📦 Deliverables for Week 2
+File	Description	Responsible
+src/com/smarthome/model/*.java	Core device and user classes	Diaa
+src/com/smarthome/database/DatabaseManager.java	JDBC connection & CRUD operations	Ola
+src/com/smarthome/view/LoginFrame.java	Login GUI	Mohamed
+src/com/smarthome/controller/HomeController.java	Control logic for devices	Yara
+src/com/smarthome/assistant/TextAssistant.java	Simple text-command interface	Mazen
+src/com/smarthome/analysis/LogManager.java	Save and load logs	Menna
+🗓️ Week 2 Timeline
+Day	Task	Member
+Mon-Tue	Build core classes	Diaa
+Wed	Create DB connection (JDBC)	Ola
+Thu	Develop Login GUI	Mohamed
+Fri	Implement control logic & text assistant	Yara, Mazen
+Sat	Integrate & test saving logs	Menna + Diaa
+✅ End-of-Week Checklist
+
+ Core classes functional
+
+ Database connected
+
+ Login GUI working
+
+ Text assistant basic commands operational
+
+ Logs stored correctly
+
+ System builds without errors
