@@ -1,76 +1,67 @@
-package controllers;
-
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+ import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.event.ActionEvent;
 
-public class LoginController {
+public class LoginController extends Application {
 
-    @FXML
-    private TextField usernameField;
+    private Stage primaryStage;
 
-    @FXML
-    private PasswordField passwordField;
+    @Override
+    public void start(Stage stage) {
+        this.primaryStage = stage;
 
-    @FXML
-    private Button loginBtn;
+        Label title = new Label("Smart Home Management");
+        title.setStyle("-fx-font-size:20px; -fx-font-weight:bold;");
 
-    @FXML
-    private Button registerBtn;
+        TextField txtUser = new TextField();
+        txtUser.setPromptText("Username");
 
-    // Placeholder login authentication
-    private boolean authenticate(String user, String pass) {
-        // Later connect with DB
-        return user.equals("admin") && pass.equals("1234");
+        PasswordField txtPass = new PasswordField();
+        txtPass.setPromptText("Password");
+
+        Label msg = new Label();
+        msg.setStyle("-fx-text-fill:red;");
+
+        Button btnLogin = new Button("Login");
+        btnLogin.setOnAction(e -> {
+            if (txtUser.getText().equals("admin") && txtPass.getText().equals("admin")) {
+                openDashboard();
+            } else {
+                msg.setText("Invalid credentials (demo: admin/admin)");
+            }
+        });
+
+        VBox box = new VBox(12, title, txtUser, txtPass, btnLogin, msg);
+        box.setPadding(new Insets(20));
+        box.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(box, 350, 260);
+
+ 
+        scene.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) btnLogin.fire();
+        });
+
+        stage.setTitle("Login");
+        stage.setScene(scene);
+        stage.show();
     }
 
-    @FXML
-    private void initialize() {
-        loginBtn.setOnAction(this::handleLogin);
-        registerBtn.setOnAction(this::handleRegister);
+    private void openDashboard() {
+        DashboardController d = new DashboardController();
+        Scene dashScene = new Scene(d.createUI(), 1100, 700);
+
+        primaryStage.setTitle("Smart Home Dashboard");
+        primaryStage.setScene(dashScene);
+        primaryStage.centerOnScreen();
     }
 
-    private void handleLogin(ActionEvent event) {
-        String user = usernameField.getText();
-        String pass = passwordField.getText();
-
-        if (authenticate(user, pass)) {
-            loadDashboard(event);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Invalid username or password!");
-            alert.show();
-        }
-    }
-
-    private void handleRegister(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText("Registration");
-        alert.setContentText("Registration window will be added later.");
-        alert.show();
-    }
-
-    private void loadDashboard(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Dashboard.fxml"));
-            Scene scene = new Scene(loader.load());
-
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Smart Home Dashboard");
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) {
+        launch(args);
     }
 }
-
